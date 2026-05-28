@@ -25,11 +25,16 @@ public class Main {
             System.out.println("Digite o primeiro número:");
             double numero1 = scanner.nextDouble();
 
-            System.out.println("Digite a operação (+, -, *, /):");
+            System.out.println("Digite a operação (+, -, *, /, %, sqrt):");
             String operacao = scanner.next();
 
-            System.out.println("Digite o segundo número:");
-            double numero2 = scanner.nextDouble();
+            double numero2 = 0;
+
+            if (!operacao.equals("sqrt")) {
+
+                System.out.println("Digite o segundo número:");
+                numero2 = scanner.nextDouble();
+            }
 
             double resultado = 0;
 
@@ -51,6 +56,14 @@ public class Main {
                     resultado = numero1 / numero2;
                     break;
 
+                case "%":
+                    resultado = (numero1 * numero2) / 100;
+                    break;
+
+                case "sqrt":
+                    resultado = Math.sqrt(numero1);
+                    break;
+
                 default:
                     System.out.println("Operação inválida!");
                     return;
@@ -58,7 +71,16 @@ public class Main {
 
             System.out.println("Resultado: " + resultado);
 
-            String expressao = numero1 + " " + operacao + " " + numero2;
+            String expressao;
+
+            if (operacao.equals("sqrt")) {
+
+                expressao = "sqrt " + numero1;
+
+            } else {
+
+                expressao = numero1 + " " + operacao + " " + numero2;
+            }
 
             Historico historico = new Historico();
 
