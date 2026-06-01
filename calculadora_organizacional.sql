@@ -24,3 +24,5 @@ CREATE TABLE historico (
 SELECT * FROM usuarios;
 
 SELECT * FROM historico;
+
+teste
