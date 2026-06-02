@@ -25,4 +25,31 @@ SELECT * FROM usuarios;
 
 SELECT * FROM historico;
 
-teste
+CREATE TABLE clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    nome VARCHAR(100),
+    telefone VARCHAR(20),
+    email VARCHAR(100),
+    observacoes TEXT
+);
+
+CREATE TABLE simulacoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    cliente_id INT,
+
+    tipo VARCHAR(50),
+
+    valor_imovel DECIMAL(12,2),
+
+    entrada DECIMAL(12,2),
+
+    prazo INT,
+
+    juros DECIMAL(5,2),
+
+    resultado TEXT,
+
+    data_simulacao DATETIME DEFAULT CURRENT_TIMESTAMP
+);
