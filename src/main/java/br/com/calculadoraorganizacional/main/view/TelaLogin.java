@@ -8,11 +8,8 @@ import javax.swing.*;
 public class TelaLogin extends JFrame {
 
     private JTextField campoLogin;
-
     private JPasswordField campoSenha;
-
     private JButton botaoEntrar;
-
     private JButton botaoCadastrar;
 
     public TelaLogin() {
@@ -73,8 +70,7 @@ public class TelaLogin extends JFrame {
 
         add(botaoCadastrar);
 
-        botaoCadastrar.addActionListener(e ->
-                new TelaCadastro());
+        botaoCadastrar.addActionListener(e -> new TelaCadastro());
 
         setVisible(true);
     }
@@ -91,10 +87,7 @@ public class TelaLogin extends JFrame {
 
         if (usuario != null) {
 
-            new TelaCalculadora(
-                    usuario.getNome(),
-                    usuario.getId()
-            );
+            new TelaDashboard(usuario.getNome());
 
             dispose();
 
