@@ -1,4 +1,4 @@
-package br.com.calculadoraorganizacional.view;
+package br.com.calculadoraorganizacional.main.view;
 
 import br.com.calculadoraorganizacional.dao.UsuarioDAO;
 import br.com.calculadoraorganizacional.model.Usuario;

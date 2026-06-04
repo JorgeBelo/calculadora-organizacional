@@ -1,4 +1,4 @@
-package br.com.calculadoraorganizacional.view;
+package br.com.calculadoraorganizacional.main.view;
 
 import br.com.calculadoraorganizacional.dao.UsuarioDAO;
 import br.com.calculadoraorganizacional.model.Usuario;
@@ -87,10 +87,10 @@ public class TelaLogin extends JFrame {
 
         if (usuario != null) {
 
-            new TelaDashboard(usuario.getNome());
-
-            dispose();
-
+            new TelaDashboard(
+                    usuario.getNome(),
+                    usuario.getId()
+            );
         } else {
 
             JOptionPane.showMessageDialog(

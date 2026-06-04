@@ -1,4 +1,5 @@
-package br.com.calculadoraorganizacional.view;
+package br.com.calculadoraorganizacional.main.view;
+
 import br.com.calculadoraorganizacional.dao.HistoricoDAO;
 import br.com.calculadoraorganizacional.model.Historico;
 

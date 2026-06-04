@@ -1,8 +1,7 @@
-package br.com.calculadoraorganizacional.view;
+package br.com.calculadoraorganizacional.main.view;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 
 public class TelaFinanciamento extends JFrame {
 
@@ -17,9 +16,11 @@ public class TelaFinanciamento extends JFrame {
 
         setTitle("Simulador de Financiamento");
 
-        setSize(500, 500);
+        setSize(550, 550);
 
         setLocationRelativeTo(null);
+
+        setResizable(false);
 
         setLayout(null);
 
@@ -31,7 +32,7 @@ public class TelaFinanciamento extends JFrame {
 
         campoValorImovel = new JTextField();
 
-        campoValorImovel.setBounds(180, 30, 200, 30);
+        campoValorImovel.setBounds(200, 30, 250, 30);
 
         add(campoValorImovel);
 
@@ -43,7 +44,7 @@ public class TelaFinanciamento extends JFrame {
 
         campoEntrada = new JTextField();
 
-        campoEntrada.setBounds(180, 80, 200, 30);
+        campoEntrada.setBounds(200, 80, 250, 30);
 
         add(campoEntrada);
 
@@ -55,7 +56,7 @@ public class TelaFinanciamento extends JFrame {
 
         campoJuros = new JTextField();
 
-        campoJuros.setBounds(180, 130, 200, 30);
+        campoJuros.setBounds(200, 130, 250, 30);
 
         add(campoJuros);
 
@@ -67,30 +68,25 @@ public class TelaFinanciamento extends JFrame {
 
         campoPrazo = new JTextField();
 
-        campoPrazo.setBounds(180, 180, 200, 30);
+        campoPrazo.setBounds(200, 180, 250, 30);
 
         add(campoPrazo);
 
         JButton btnCalcular = new JButton("Calcular");
 
-        btnCalcular.setBounds(150, 250, 150, 40);
+        btnCalcular.setBounds(190, 250, 150, 40);
 
         add(btnCalcular);
 
-        resultado = new JLabel("");
+        resultado = new JLabel();
 
-        resultado.setBounds(30, 330, 420, 40);
+        resultado.setBounds(30, 320, 470, 140);
+
+        resultado.setFont(new Font("Arial", Font.PLAIN, 14));
 
         add(resultado);
 
-        btnCalcular.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                calcularFinanciamento();
-            }
-        });
+        btnCalcular.addActionListener(e -> calcularFinanciamento());
 
         setVisible(true);
     }
@@ -118,12 +114,32 @@ public class TelaFinanciamento extends JFrame {
                     (valorFinanciado * juros)
                             / (1 - Math.pow(1 + juros, -prazo));
 
+            double totalPago =
+                    parcela * prazo;
+
+            double totalJuros =
+                    totalPago - valorFinanciado;
+
             resultado.setText(
-                    String.format(
-                            "Valor financiado: R$ %.2f | Parcela: R$ %.2f",
-                            valorFinanciado,
-                            parcela
-                    )
+                    "<html>" +
+                            "<b>Resultado da Simulação</b><br><br>" +
+
+                            "Valor financiado: R$ "
+                            + String.format("%.2f", valorFinanciado)
+                            + "<br>" +
+
+                            "Parcela mensal: R$ "
+                            + String.format("%.2f", parcela)
+                            + "<br>" +
+
+                            "Total pago: R$ "
+                            + String.format("%.2f", totalPago)
+                            + "<br>" +
+
+                            "Total de juros: R$ "
+                            + String.format("%.2f", totalJuros)
+                            +
+                            "</html>"
             );
 
         } catch (Exception ex) {

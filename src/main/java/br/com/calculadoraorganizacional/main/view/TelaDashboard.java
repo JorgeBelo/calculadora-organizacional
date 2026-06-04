@@ -1,55 +1,202 @@
-package br.com.calculadoraorganizacional.view;
+package br.com.calculadoraorganizacional.main.view;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class TelaDashboard extends JFrame {
 
+    private JPanel painelPrincipal;
+
+    private JLabel titulo;
+    private JLabel subtitulo;
+
+    private RoundedButton btnFinanciamento;
+    private RoundedButton btnPropostas;
+    private RoundedButton btnHistorico;
+    private RoundedButton btnDarkMode;
+
+    private boolean modoEscuro = true;
+
     public TelaDashboard(String nomeUsuario) {
 
-        setTitle("Dashboard Imobiliário");
+        setTitle("ImobiCalc Pro");
 
-        setSize(800, 600);
+        setSize(650, 550);
 
         setLocationRelativeTo(null);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setLayout(null);
+        setResizable(false);
 
-        JLabel titulo = new JLabel("Bem-vindo, " + nomeUsuario);
+        painelPrincipal = new JPanel();
 
-        titulo.setBounds(30, 20, 400, 30);
+        painelPrincipal.setLayout(null);
 
-        add(titulo);
+        add(painelPrincipal);
 
-        JButton btnFinanciamento = new JButton("Financiamento");
+        // TÍTULO
 
-        btnFinanciamento.setBounds(50, 100, 200, 50);
+        titulo = new JLabel(
+                "Bem-vindo, " + nomeUsuario,
+                SwingConstants.CENTER
+        );
 
-        btnFinanciamento.addActionListener(e -> {
-            new TelaFinanciamento();
-        });
+        titulo.setFont(new Font("Arial", Font.BOLD, 24));
 
-        add(btnFinanciamento);
+        titulo.setBounds(75, 25, 500, 40);
 
-        JButton btnParcelas = new JButton("Parcelas");
+        painelPrincipal.add(titulo);
 
-        btnParcelas.setBounds(50, 180, 200, 50);
+        // SUBTÍTULO
 
-        add(btnParcelas);
+        subtitulo = new JLabel(
+                "Sistema de Simulação Imobiliária",
+                SwingConstants.CENTER
+        );
 
-        JButton btnJuros = new JButton("Juros");
+        subtitulo.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        btnJuros.setBounds(50, 260, 200, 50);
+        subtitulo.setBounds(75, 60, 500, 25);
 
-        add(btnJuros);
+        painelPrincipal.add(subtitulo);
 
-        JButton btnHistorico = new JButton("Histórico");
+        // FINANCIAMENTO
 
-        btnHistorico.setBounds(50, 340, 200, 50);
+        btnFinanciamento =
+                new RoundedButton("Simular Financiamento");
 
-        add(btnHistorico);
+        btnFinanciamento.setBounds(
+                125,
+                120,
+                400,
+                60
+        );
+
+        btnFinanciamento.addActionListener(
+                e -> new TelaFinanciamento()
+        );
+
+        painelPrincipal.add(btnFinanciamento);
+
+        // PROPOSTAS
+
+        btnPropostas =
+                new RoundedButton("Gerar Proposta");
+
+        btnPropostas.setBounds(
+                125,
+                210,
+                400,
+                60
+        );
+
+        btnPropostas.addActionListener(
+                e -> new TelaPropostas()
+        );
+
+        painelPrincipal.add(btnPropostas);
+
+        // HISTÓRICO
+
+        btnHistorico =
+                new RoundedButton("Histórico");
+
+        btnHistorico.setBounds(
+                125,
+                300,
+                400,
+                60
+        );
+
+        btnHistorico.addActionListener(
+                e -> new TelaHistorico()
+        );
+
+        painelPrincipal.add(btnHistorico);
+        // TEMA
+
+        btnDarkMode =
+                new RoundedButton("Alternar Tema");
+
+        btnDarkMode.setBounds(
+                200,
+                410,
+                250,
+                50
+        );
+
+        btnDarkMode.addActionListener(
+                e -> alternarTema()
+        );
+
+        painelPrincipal.add(btnDarkMode);
+
+        aplicarTemaEscuro();
 
         setVisible(true);
     }
+
+    private void alternarTema() {
+
+        modoEscuro = !modoEscuro;
+
+        if (modoEscuro) {
+            aplicarTemaEscuro();
+        } else {
+            aplicarTemaClaro();
+        }
+    }
+
+    private void aplicarTemaEscuro() {
+
+        painelPrincipal.setBackground(
+                new Color(15, 23, 42)
+        );
+
+        titulo.setForeground(Color.WHITE);
+
+        subtitulo.setForeground(
+                new Color(203, 213, 225)
+        );
+
+        Color corBotao =
+                new Color(30, 41, 59);
+
+        btnFinanciamento.setBackground(corBotao);
+        btnPropostas.setBackground(corBotao);
+        btnHistorico.setBackground(corBotao);
+        btnDarkMode.setBackground(corBotao);
+
+        btnFinanciamento.setForeground(Color.WHITE);
+        btnPropostas.setForeground(Color.WHITE);
+        btnHistorico.setForeground(Color.WHITE);
+        btnDarkMode.setForeground(Color.WHITE);
+    }
+
+    private void aplicarTemaClaro() {
+
+        painelPrincipal.setBackground(
+                new Color(248, 250, 252)
+        );
+
+        titulo.setForeground(
+                new Color(15, 23, 42)
+        );
+
+        subtitulo.setForeground(
+                new Color(71, 85, 105)
+        );
+
+        btnFinanciamento.setBackground(Color.WHITE);
+        btnPropostas.setBackground(Color.WHITE);
+        btnHistorico.setBackground(Color.WHITE);
+        btnDarkMode.setBackground(Color.WHITE);
+
+        btnFinanciamento.setForeground(Color.BLACK);
+        btnPropostas.setForeground(Color.BLACK);
+        btnHistorico.setForeground(Color.BLACK);
+        btnDarkMode.setForeground(Color.BLACK);
+    }
 }
+
