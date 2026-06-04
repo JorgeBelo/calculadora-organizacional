@@ -1,7 +1,6 @@
 package br.com.calculadoraorganizacional.main.view;
 
-import br.com.calculadoraorganizacional.main.connection.ConexaoMySQL;
-
+import br.com.calculadoraorganizacional.connection.ConexaoMySQL;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;

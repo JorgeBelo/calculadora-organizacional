@@ -17,7 +17,11 @@ public class TelaDashboard extends JFrame {
 
     private boolean modoEscuro = true;
 
-    public TelaDashboard(String nomeUsuario) {
+    private int usuarioId;
+
+    public TelaDashboard(String nomeUsuario, int usuarioId) {
+
+        this.usuarioId = usuarioId;
 
         setTitle("ImobiCalc Pro");
 
@@ -110,10 +114,11 @@ public class TelaDashboard extends JFrame {
         );
 
         btnHistorico.addActionListener(
-                e -> new TelaHistorico()
+                e -> new TelaHistorico(usuarioId)
         );
 
         painelPrincipal.add(btnHistorico);
+
         // TEMA
 
         btnDarkMode =
@@ -199,4 +204,3 @@ public class TelaDashboard extends JFrame {
         btnDarkMode.setForeground(Color.BLACK);
     }
 }
-
