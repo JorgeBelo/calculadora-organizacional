@@ -13,19 +13,26 @@ public class TelaDashboard extends JFrame {
     private RoundedButton btnFinanciamento;
     private RoundedButton btnPropostas;
     private RoundedButton btnHistorico;
+    private RoundedButton btnComparador;
+    private RoundedButton btnCronograma;
+    private RoundedButton btnCapacidade;
+    private RoundedButton btnCustosCompra;
+    private RoundedButton btnRelatorio;
     private RoundedButton btnDarkMode;
 
     private boolean modoEscuro = true;
 
     private int usuarioId;
+    private String nomeUsuario;
 
     public TelaDashboard(String nomeUsuario, int usuarioId) {
 
         this.usuarioId = usuarioId;
+        this.nomeUsuario = nomeUsuario;
 
         setTitle("ImobiCalc Pro");
 
-        setSize(650, 550);
+        setSize(650, 720);
 
         setLocationRelativeTo(null);
 
@@ -65,76 +72,71 @@ public class TelaDashboard extends JFrame {
 
         painelPrincipal.add(subtitulo);
 
+        int yBase = 110;
+        int altura = 50;
+        int espaco = 10;
+
         // FINANCIAMENTO
 
-        btnFinanciamento =
-                new RoundedButton("Simular Financiamento");
-
-        btnFinanciamento.setBounds(
-                125,
-                120,
-                400,
-                60
-        );
-
-        btnFinanciamento.addActionListener(
-                e -> new TelaFinanciamento()
-        );
-
+        btnFinanciamento = new RoundedButton("Simular Financiamento");
+        btnFinanciamento.setBounds(125, yBase, 400, altura);
+        btnFinanciamento.addActionListener(e -> new TelaFinanciamento());
         painelPrincipal.add(btnFinanciamento);
 
         // PROPOSTAS
 
-        btnPropostas =
-                new RoundedButton("Gerar Proposta");
-
-        btnPropostas.setBounds(
-                125,
-                210,
-                400,
-                60
-        );
-
-        btnPropostas.addActionListener(
-                e -> new TelaPropostas()
-        );
-
+        btnPropostas = new RoundedButton("Gerar Proposta");
+        btnPropostas.setBounds(125, yBase + (altura + espaco), 400, altura);
+        btnPropostas.addActionListener(e -> new TelaPropostas());
         painelPrincipal.add(btnPropostas);
 
         // HISTÓRICO
 
-        btnHistorico =
-                new RoundedButton("Histórico");
-
-        btnHistorico.setBounds(
-                125,
-                300,
-                400,
-                60
-        );
-
-        btnHistorico.addActionListener(
-                e -> new TelaHistorico(usuarioId)
-        );
-
+        btnHistorico = new RoundedButton("Histórico");
+        btnHistorico.setBounds(125, yBase + 2 * (altura + espaco), 400, altura);
+        btnHistorico.addActionListener(e -> new TelaHistorico(usuarioId));
         painelPrincipal.add(btnHistorico);
+
+        // COMPARADOR PRICE x SAC
+
+        btnComparador = new RoundedButton("Comparador Price x SAC");
+        btnComparador.setBounds(125, yBase + 3 * (altura + espaco), 400, altura);
+        btnComparador.addActionListener(e -> new TelaComparadorPriceSAC(nomeUsuario, usuarioId));
+        painelPrincipal.add(btnComparador);
+
+        // CRONOGRAMA DE PARCELAS
+
+        btnCronograma = new RoundedButton("Cronograma de Parcelas");
+        btnCronograma.setBounds(125, yBase + 4 * (altura + espaco), 400, altura);
+        btnCronograma.addActionListener(e -> new TelaCronogramoParcelas(nomeUsuario, usuarioId));
+        painelPrincipal.add(btnCronograma);
+
+        // CAPACIDADE DE CRÉDITO
+
+        btnCapacidade = new RoundedButton("Capacidade de Crédito");
+        btnCapacidade.setBounds(125, yBase + 5 * (altura + espaco), 400, altura);
+        btnCapacidade.addActionListener(e -> new TelaCapacidadeCredito(nomeUsuario, usuarioId));
+        painelPrincipal.add(btnCapacidade);
+
+        // CUSTOS TOTAIS DE COMPRA
+
+        btnCustosCompra = new RoundedButton("Custos Totais de Compra");
+        btnCustosCompra.setBounds(125, yBase + 6 * (altura + espaco), 400, altura);
+        btnCustosCompra.addActionListener(e -> new TelaCustosTotaisCompra(nomeUsuario, usuarioId));
+        painelPrincipal.add(btnCustosCompra);
+
+        // RELATÓRIO DE CLIENTES
+
+        btnRelatorio = new RoundedButton("Relatório de Clientes");
+        btnRelatorio.setBounds(125, yBase + 7 * (altura + espaco), 400, altura);
+        btnRelatorio.addActionListener(e -> new TelaRelatorioCliente(nomeUsuario, usuarioId));
+        painelPrincipal.add(btnRelatorio);
 
         // TEMA
 
-        btnDarkMode =
-                new RoundedButton("Alternar Tema");
-
-        btnDarkMode.setBounds(
-                200,
-                410,
-                250,
-                50
-        );
-
-        btnDarkMode.addActionListener(
-                e -> alternarTema()
-        );
-
+        btnDarkMode = new RoundedButton("Alternar Tema");
+        btnDarkMode.setBounds(200, yBase + 8 * (altura + espaco) + 5, 250, 45);
+        btnDarkMode.addActionListener(e -> alternarTema());
         painelPrincipal.add(btnDarkMode);
 
         aplicarTemaEscuro();
@@ -171,11 +173,21 @@ public class TelaDashboard extends JFrame {
         btnFinanciamento.setBackground(corBotao);
         btnPropostas.setBackground(corBotao);
         btnHistorico.setBackground(corBotao);
+        btnComparador.setBackground(corBotao);
+        btnCronograma.setBackground(corBotao);
+        btnCapacidade.setBackground(corBotao);
+        btnCustosCompra.setBackground(corBotao);
+        btnRelatorio.setBackground(corBotao);
         btnDarkMode.setBackground(corBotao);
 
         btnFinanciamento.setForeground(Color.WHITE);
         btnPropostas.setForeground(Color.WHITE);
         btnHistorico.setForeground(Color.WHITE);
+        btnComparador.setForeground(Color.WHITE);
+        btnCronograma.setForeground(Color.WHITE);
+        btnCapacidade.setForeground(Color.WHITE);
+        btnCustosCompra.setForeground(Color.WHITE);
+        btnRelatorio.setForeground(Color.WHITE);
         btnDarkMode.setForeground(Color.WHITE);
     }
 
@@ -196,11 +208,21 @@ public class TelaDashboard extends JFrame {
         btnFinanciamento.setBackground(Color.WHITE);
         btnPropostas.setBackground(Color.WHITE);
         btnHistorico.setBackground(Color.WHITE);
+        btnComparador.setBackground(Color.WHITE);
+        btnCronograma.setBackground(Color.WHITE);
+        btnCapacidade.setBackground(Color.WHITE);
+        btnCustosCompra.setBackground(Color.WHITE);
+        btnRelatorio.setBackground(Color.WHITE);
         btnDarkMode.setBackground(Color.WHITE);
 
         btnFinanciamento.setForeground(Color.BLACK);
         btnPropostas.setForeground(Color.BLACK);
         btnHistorico.setForeground(Color.BLACK);
+        btnComparador.setForeground(Color.BLACK);
+        btnCronograma.setForeground(Color.BLACK);
+        btnCapacidade.setForeground(Color.BLACK);
+        btnCustosCompra.setForeground(Color.BLACK);
+        btnRelatorio.setForeground(Color.BLACK);
         btnDarkMode.setForeground(Color.BLACK);
     }
 }

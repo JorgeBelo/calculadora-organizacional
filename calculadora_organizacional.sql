@@ -53,3 +53,5 @@ CREATE TABLE simulacoes (
 
     data_simulacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+teste
