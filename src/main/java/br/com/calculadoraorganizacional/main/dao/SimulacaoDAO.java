@@ -1,4 +1,4 @@
-package br.com.calculadoraorganizacional.dao;
+package br.com.calculadoraorganizacional.main.dao;
 
 import br.com.calculadoraorganizacional.connection.ConexaoMySQL;
 

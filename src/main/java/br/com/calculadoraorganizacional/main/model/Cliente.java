@@ -1,4 +1,4 @@
-package br.com.calculadoraorganizacional.model;
+package br.com.calculadoraorganizacional.main.model;
 
 import java.math.BigDecimal;
 import java.util.Date;

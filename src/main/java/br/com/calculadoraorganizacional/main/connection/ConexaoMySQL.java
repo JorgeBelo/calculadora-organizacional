@@ -1,4 +1,4 @@
-package br.com.calculadoraorganizacional.connection;
+package br.com.calculadoraorganizacional.main.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
