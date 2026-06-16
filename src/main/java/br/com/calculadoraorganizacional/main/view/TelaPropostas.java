@@ -2,6 +2,9 @@ package br.com.calculadoraorganizacional.main.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 public class TelaPropostas extends JFrame {
 
@@ -15,119 +18,271 @@ public class TelaPropostas extends JFrame {
 
     public TelaPropostas() {
 
-        setTitle("Gerador de Propostas");
-        setSize(700, 650);
+        setTitle("ImobiCalc Pro - Gerar Proposta");
+
+        setSize(800, 700);
+
         setLocationRelativeTo(null);
+
         setResizable(false);
+
         setLayout(null);
 
-        JLabel titulo = new JLabel("Gerador de Proposta");
-        titulo.setFont(new Font("Arial", Font.BOLD, 24));
-        titulo.setBounds(210, 20, 300, 40);
+        getContentPane().setBackground(
+                new Color(15, 23, 42)
+        );
+
+        // TÍTULO
+
+        JLabel titulo = new JLabel(
+                "Gerador de Propostas",
+                SwingConstants.CENTER
+        );
+
+        titulo.setFont(
+                new Font("Arial", Font.BOLD, 24)
+        );
+
+        titulo.setForeground(Color.WHITE);
+
+        titulo.setBounds(
+                150,
+                20,
+                500,
+                40
+        );
+
         add(titulo);
 
-        JLabel lblNome = new JLabel("Cliente:");
-        lblNome.setBounds(50, 90, 150, 30);
-        add(lblNome);
+        // SUBTÍTULO
 
-        campoNome = new JTextField();
-        campoNome.setBounds(220, 90, 350, 30);
-        add(campoNome);
+        JLabel subtitulo = new JLabel(
+                "Monte uma proposta imobiliária para seu cliente",
+                SwingConstants.CENTER
+        );
 
-        JLabel lblValor = new JLabel("Valor do Imóvel:");
-        lblValor.setBounds(50, 140, 150, 30);
-        add(lblValor);
+        subtitulo.setForeground(
+                new Color(203, 213, 225)
+        );
 
-        campoValorImovel = new JTextField();
-        campoValorImovel.setBounds(220, 140, 350, 30);
-        add(campoValorImovel);
+        subtitulo.setBounds(
+                150,
+                55,
+                500,
+                25
+        );
 
-        JLabel lblEntrada = new JLabel("Entrada:");
-        lblEntrada.setBounds(50, 190, 150, 30);
-        add(lblEntrada);
+        add(subtitulo);
 
-        campoEntrada = new JTextField();
-        campoEntrada.setBounds(220, 190, 350, 30);
-        add(campoEntrada);
+        // CARD
 
-        JLabel lblJuros = new JLabel("Juros (% ao mês):");
-        lblJuros.setBounds(50, 240, 150, 30);
-        add(lblJuros);
+        JPanel card = new JPanel();
 
-        campoJuros = new JTextField();
-        campoJuros.setBounds(220, 240, 350, 30);
-        add(campoJuros);
+        card.setLayout(null);
 
-        JLabel lblPrazo = new JLabel("Prazo (meses):");
-        lblPrazo.setBounds(50, 290, 150, 30);
-        add(lblPrazo);
+        card.setBackground(
+                new Color(30, 41, 59)
+        );
 
-        campoPrazo = new JTextField();
-        campoPrazo.setBounds(220, 290, 350, 30);
-        add(campoPrazo);
+        card.setBounds(
+                40,
+                100,
+                700,
+                520
+        );
 
-        JButton btnGerar = new JButton("Gerar Proposta");
-        btnGerar.setBounds(230, 350, 220, 45);
-        add(btnGerar);
+        add(card);
+
+        JLabel lblNome = criarLabel("Cliente:");
+        lblNome.setBounds(40, 30, 150, 30);
+        card.add(lblNome);
+
+        campoNome = criarCampo();
+        campoNome.setBounds(220, 30, 400, 35);
+        card.add(campoNome);
+
+        JLabel lblValor = criarLabel("Valor do Imóvel:");
+        lblValor.setBounds(40, 80, 150, 30);
+        card.add(lblValor);
+
+        campoValorImovel = criarCampo();
+        campoValorImovel.setBounds(220, 80, 400, 35);
+        card.add(campoValorImovel);
+
+        JLabel lblEntrada = criarLabel("Entrada:");
+        lblEntrada.setBounds(40, 130, 150, 30);
+        card.add(lblEntrada);
+
+        campoEntrada = criarCampo();
+        campoEntrada.setBounds(220, 130, 400, 35);
+        card.add(campoEntrada);
+
+        JLabel lblJuros = criarLabel("Juros (% ao mês):");
+        lblJuros.setBounds(40, 180, 150, 30);
+        card.add(lblJuros);
+
+        campoJuros = criarCampo();
+        campoJuros.setBounds(220, 180, 400, 35);
+        card.add(campoJuros);
+
+        JLabel lblPrazo = criarLabel("Prazo (meses):");
+        lblPrazo.setBounds(40, 230, 150, 30);
+        card.add(lblPrazo);
+
+        campoPrazo = criarCampo();
+        campoPrazo.setBounds(220, 230, 400, 35);
+        card.add(campoPrazo);
+
+        RoundedButton btnGerar =
+                new RoundedButton("Gerar Proposta");
+
+        btnGerar.setBounds(
+                240,
+                290,
+                220,
+                45
+        );
+
+        btnGerar.setBackground(
+                new Color(59, 130, 246)
+        );
+
+        btnGerar.setForeground(Color.WHITE);
+
+        card.add(btnGerar);
 
         areaResultado = new JTextArea();
+
         areaResultado.setEditable(false);
+
+        areaResultado.setFont(
+                new Font("Consolas", Font.PLAIN, 14)
+        );
+
+        areaResultado.setBackground(
+                new Color(248, 250, 252)
+        );
 
         JScrollPane scroll =
                 new JScrollPane(areaResultado);
 
-        scroll.setBounds(50, 430, 580, 140);
+        scroll.setBounds(
+                40,
+                360,
+                620,
+                130
+        );
 
-        add(scroll);
+        card.add(scroll);
 
-        btnGerar.addActionListener(e -> gerarProposta());
+        btnGerar.addActionListener(
+                e -> gerarProposta()
+        );
 
         setVisible(true);
+    }
+
+    private JLabel criarLabel(String texto) {
+
+        JLabel label = new JLabel(texto);
+
+        label.setForeground(Color.WHITE);
+
+        label.setFont(
+                new Font("Arial", Font.BOLD, 14)
+        );
+
+        return label;
+    }
+
+    private JTextField criarCampo() {
+
+        JTextField campo = new JTextField();
+
+        campo.setFont(
+                new Font("Arial", Font.PLAIN, 14)
+        );
+
+        return campo;
     }
 
     private void gerarProposta() {
 
         try {
 
-            String nome = campoNome.getText();
+            DecimalFormat df =
+                    new DecimalFormat(
+                            "#,##0.00",
+                            new DecimalFormatSymbols(
+                                    new Locale("pt", "BR")
+                            )
+                    );
+
+            String nome =
+                    campoNome.getText();
 
             double valorImovel =
-                    Double.parseDouble(campoValorImovel.getText());
+                    Double.parseDouble(
+                            campoValorImovel
+                                    .getText()
+                                    .replace(",", ".")
+                    );
 
             double entrada =
-                    Double.parseDouble(campoEntrada.getText());
+                    Double.parseDouble(
+                            campoEntrada
+                                    .getText()
+                                    .replace(",", ".")
+                    );
 
             double juros =
-                    Double.parseDouble(campoJuros.getText()) / 100;
+                    Double.parseDouble(
+                            campoJuros
+                                    .getText()
+                                    .replace(",", ".")
+                    ) / 100;
 
             int prazo =
-                    Integer.parseInt(campoPrazo.getText());
+                    Integer.parseInt(
+                            campoPrazo.getText()
+                    );
 
             double valorFinanciado =
                     valorImovel - entrada;
 
             double parcela =
                     (valorFinanciado * juros)
-                            / (1 - Math.pow(1 + juros, -prazo));
+                            /
+                            (1 - Math.pow(
+                                    1 + juros,
+                                    -prazo
+                            ));
 
             double rendaMinima =
                     parcela * 3;
 
-            String proposta =
-                    "PROPOSTA DE FINANCIAMENTO\n\n" +
-                            "Cliente: " + nome + "\n\n" +
-                            "Valor do Imóvel: R$ " +
-                            String.format("%.2f", valorImovel) + "\n" +
-                            "Entrada: R$ " +
-                            String.format("%.2f", entrada) + "\n\n" +
-                            "Valor Financiado: R$ " +
-                            String.format("%.2f", valorFinanciado) + "\n\n" +
-                            "Parcela Estimada: R$ " +
-                            String.format("%.2f", parcela) + "\n\n" +
-                            "Renda Recomendada: R$ " +
-                            String.format("%.2f", rendaMinima);
+            areaResultado.setText(
 
-            areaResultado.setText(proposta);
+                    "PROPOSTA DE FINANCIAMENTO\n\n" +
+
+                            "Cliente: "
+                            + nome +
+
+                            "\n\nValor do Imóvel: R$ "
+                            + df.format(valorImovel) +
+
+                            "\nEntrada: R$ "
+                            + df.format(entrada) +
+
+                            "\n\nValor Financiado: R$ "
+                            + df.format(valorFinanciado) +
+
+                            "\n\nParcela Estimada: R$ "
+                            + df.format(parcela) +
+
+                            "\n\nRenda Recomendada: R$ "
+                            + df.format(rendaMinima)
+            );
 
         } catch (Exception ex) {
 
