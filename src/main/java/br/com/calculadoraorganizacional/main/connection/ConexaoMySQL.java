@@ -11,7 +11,7 @@ public class ConexaoMySQL {
 
     private static final String USUARIO = "root";
 
-    private static final String SENHA = "Davi123Molosse%";
+    private static final String SENHA = "root";
 
     public static Connection conectar() {
 
