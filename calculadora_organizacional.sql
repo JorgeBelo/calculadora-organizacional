@@ -53,4 +53,12 @@ CREATE TABLE simulacoes (
     resultado TEXT,
 
     data_simulacao DATETIME DEFAULT CURRENT_TIMESTAMP
+
+    ALTER TABLE historico
+    MODIFY expressao TEXT;
+
+    ALTER TABLE historico
+    MODIFY resultado TEXT;
+
+    ALTER TABLE historico ADD COLUMN tipo VARCHAR(50) AFTER usuario_id
 );
