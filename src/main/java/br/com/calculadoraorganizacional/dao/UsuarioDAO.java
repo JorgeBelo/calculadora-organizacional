@@ -1,6 +1,6 @@
 package br.com.calculadoraorganizacional.dao;
 
-import br.com.calculadoraorganizacional.connection.ConexaoMySQL;
+import br.com.calculadoraorganizacional.ConexaoMySQL;
 import br.com.calculadoraorganizacional.model.Usuario;
 
 import java.sql.Connection;

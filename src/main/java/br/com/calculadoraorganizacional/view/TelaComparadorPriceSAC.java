@@ -1,10 +1,9 @@
-package br.com.calculadoraorganizacional.main.view;
+package br.com.calculadoraorganizacional.view;
 
-import br.com.calculadoraorganizacional.dao.SimulacaoDAO;
+import br.com.calculadoraorganizacional.dao.HistoricoDAO;
+import br.com.calculadoraorganizacional.model.Historico;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -340,8 +339,13 @@ public class TelaComparadorPriceSAC extends JFrame {
                     + ", Total juros=" + FMT.format(totalJurosSAC)
                     + " | Economia SAC=" + FMT.format(economia);
 
-            SimulacaoDAO dao = new SimulacaoDAO();
-            dao.salvarSimulacao(usuarioId, "COMPARADOR_PRICE_SAC", valorImovel, entrada, prazo, taxa, resultado);
+            String expressao = "Imóvel=" + FMT.format(valorImovel)
+                    + " | Entrada=" + FMT.format(entrada)
+                    + " | Juros=" + (taxa * 100) + "% a.m."
+                    + " | Prazo=" + prazo + " meses";
+
+            Historico h = new Historico(usuarioId, "Comparador", expressao, resultado);
+            new HistoricoDAO().salvar(h);
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos corretamente!");

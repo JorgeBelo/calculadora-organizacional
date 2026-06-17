@@ -1,4 +1,4 @@
-package br.com.calculadoraorganizacional.main.view;
+package br.com.calculadoraorganizacional.view;
 
 import br.com.calculadoraorganizacional.dao.UsuarioDAO;
 import br.com.calculadoraorganizacional.model.Usuario;
@@ -6,26 +6,25 @@ import br.com.calculadoraorganizacional.model.Usuario;
 import javax.swing.*;
 import java.awt.*;
 
-public class TelaCadastro extends JFrame {
+public class TelaLogin extends JFrame {
 
-    private JTextField campoNome;
     private JTextField campoLogin;
     private JPasswordField campoSenha;
 
+    private RoundedButton botaoEntrar;
     private RoundedButton botaoCadastrar;
-    private RoundedButton botaoVoltar;
 
-    public TelaCadastro() {
+    public TelaLogin() {
 
-        setTitle("ImobiCalc Pro - Cadastro");
+        setTitle("ImobiCalc Pro");
 
-        setSize(500, 550);
+        setSize(500, 500);
 
         setLocationRelativeTo(null);
 
-        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setLayout(null);
+        setResizable(false);
 
         JPanel painelPrincipal = new JPanel();
 
@@ -35,14 +34,12 @@ public class TelaCadastro extends JFrame {
                 new Color(15, 23, 42)
         );
 
-        painelPrincipal.setBounds(0, 0, 500, 550);
-
         add(painelPrincipal);
 
         // TÍTULO
 
         JLabel titulo = new JLabel(
-                "Criar Conta",
+                "ImobiCalc Pro",
                 SwingConstants.CENTER
         );
 
@@ -64,7 +61,7 @@ public class TelaCadastro extends JFrame {
         // SUBTÍTULO
 
         JLabel subtitulo = new JLabel(
-                "Cadastro de Usuário",
+                "Sistema de Simulação Imobiliária",
                 SwingConstants.CENTER
         );
 
@@ -81,7 +78,7 @@ public class TelaCadastro extends JFrame {
 
         painelPrincipal.add(subtitulo);
 
-        // CARD
+        // CARD CENTRAL
 
         JPanel card = new JPanel();
 
@@ -95,36 +92,10 @@ public class TelaCadastro extends JFrame {
                 50,
                 120,
                 380,
-                320
+                280
         );
 
         painelPrincipal.add(card);
-
-        // NOME
-
-        JLabel lblNome = new JLabel("Nome");
-
-        lblNome.setForeground(Color.WHITE);
-
-        lblNome.setBounds(
-                40,
-                20,
-                100,
-                25
-        );
-
-        card.add(lblNome);
-
-        campoNome = new JTextField();
-
-        campoNome.setBounds(
-                40,
-                45,
-                300,
-                35
-        );
-
-        card.add(campoNome);
 
         // LOGIN
 
@@ -134,7 +105,7 @@ public class TelaCadastro extends JFrame {
 
         lblLogin.setBounds(
                 40,
-                95,
+                30,
                 100,
                 25
         );
@@ -145,7 +116,7 @@ public class TelaCadastro extends JFrame {
 
         campoLogin.setBounds(
                 40,
-                120,
+                55,
                 300,
                 35
         );
@@ -160,7 +131,7 @@ public class TelaCadastro extends JFrame {
 
         lblSenha.setBounds(
                 40,
-                170,
+                105,
                 100,
                 25
         );
@@ -171,12 +142,36 @@ public class TelaCadastro extends JFrame {
 
         campoSenha.setBounds(
                 40,
-                195,
+                130,
                 300,
                 35
         );
 
         card.add(campoSenha);
+
+        // BOTÃO ENTRAR
+
+        botaoEntrar =
+                new RoundedButton("Entrar");
+
+        botaoEntrar.setBounds(
+                40,
+                205,
+                140,
+                45
+        );
+
+        botaoEntrar.setBackground(
+                new Color(59, 130, 246)
+        );
+
+        botaoEntrar.setForeground(Color.WHITE);
+
+        botaoEntrar.addActionListener(
+                e -> realizarLogin()
+        );
+
+        card.add(botaoEntrar);
 
         // BOTÃO CADASTRAR
 
@@ -184,8 +179,8 @@ public class TelaCadastro extends JFrame {
                 new RoundedButton("Cadastrar");
 
         botaoCadastrar.setBounds(
-                40,
-                255,
+                200,
+                205,
                 140,
                 45
         );
@@ -194,49 +189,18 @@ public class TelaCadastro extends JFrame {
                 new Color(16, 185, 129)
         );
 
-        botaoCadastrar.setForeground(
-                Color.WHITE
-        );
+        botaoCadastrar.setForeground(Color.WHITE);
 
         botaoCadastrar.addActionListener(
-                e -> cadastrarUsuario()
+                e -> new TelaCadastro()
         );
 
         card.add(botaoCadastrar);
 
-        // BOTÃO VOLTAR
-
-        botaoVoltar =
-                new RoundedButton("Voltar");
-
-        botaoVoltar.setBounds(
-                200,
-                255,
-                140,
-                45
-        );
-
-        botaoVoltar.setBackground(
-                new Color(59, 130, 246)
-        );
-
-        botaoVoltar.setForeground(
-                Color.WHITE
-        );
-
-        botaoVoltar.addActionListener(
-                e -> dispose()
-        );
-
-        card.add(botaoVoltar);
-
         setVisible(true);
     }
 
-    private void cadastrarUsuario() {
-
-        String nome =
-                campoNome.getText();
+    private void realizarLogin() {
 
         String login =
                 campoLogin.getText();
@@ -246,40 +210,30 @@ public class TelaCadastro extends JFrame {
                         campoSenha.getPassword()
                 );
 
-        if (
-                nome.isEmpty() ||
-                        login.isEmpty() ||
-                        senha.isEmpty()
-        ) {
-
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Preencha todos os campos!"
-            );
-
-            return;
-        }
-
-        Usuario usuario = new Usuario();
-
-        usuario.setNome(nome);
-
-        usuario.setLogin(login);
-
-        usuario.setSenha(senha);
-
         UsuarioDAO usuarioDAO =
                 new UsuarioDAO();
 
-        usuarioDAO.cadastrarUsuario(
-                usuario
-        );
+        Usuario usuario =
+                usuarioDAO.realizarLogin(
+                        login,
+                        senha
+                );
 
-        JOptionPane.showMessageDialog(
-                this,
-                "Usuário cadastrado com sucesso!"
-        );
+        if (usuario != null) {
 
-        dispose();
+            dispose();
+
+            new TelaDashboard(
+                    usuario.getNome(),
+                    usuario.getId()
+            );
+
+        } else {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Login ou senha incorretos!"
+            );
+        }
     }
 }

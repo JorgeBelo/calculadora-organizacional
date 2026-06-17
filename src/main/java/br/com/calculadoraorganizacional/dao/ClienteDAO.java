@@ -1,6 +1,7 @@
-package br.com.calculadoraorganizacional.main.dao;
+package br.com.calculadoraorganizacional.dao;
 
-import br.com.calculadoraorganizacional.connection.ConexaoMySQL;
+import br.com.calculadoraorganizacional.ConexaoMySQL;
+import br.com.calculadoraorganizacional.ConexaoMySQL;
 import br.com.calculadoraorganizacional.model.Cliente;
 
 import java.sql.Connection;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteDAO {
+
+    private ConexaoMySQL ConexaoMySQL;
 
     public List<Cliente> buscarTodos() {
         List<Cliente> lista = new ArrayList<>();

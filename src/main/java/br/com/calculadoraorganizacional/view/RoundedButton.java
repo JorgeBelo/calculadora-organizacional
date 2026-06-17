@@ -1,4 +1,4 @@
-package br.com.calculadoraorganizacional.main.view;
+package br.com.calculadoraorganizacional.view;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package br.com.calculadoraorganizacional.main.connection;
+package br.com.calculadoraorganizacional;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +11,7 @@ public class ConexaoMySQL {
 
     private static final String USUARIO = "root";
 
-    private static final String SENHA = "root";
+    private static final String SENHA = "Davi123Molosse%";
 
     public static Connection conectar() {
 

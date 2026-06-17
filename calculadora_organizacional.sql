@@ -13,8 +13,9 @@ CREATE TABLE usuarios (
 CREATE TABLE historico (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
-    expressao VARCHAR(100),
-    resultado VARCHAR(50),
+    tipo VARCHAR(50),
+    expressao VARCHAR(200),
+    resultado VARCHAR(500),
     data_operacao DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (usuario_id)

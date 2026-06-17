@@ -1,4 +1,7 @@
-package br.com.calculadoraorganizacional.main.view;
+package br.com.calculadoraorganizacional.view;
+
+import br.com.calculadoraorganizacional.dao.HistoricoDAO;
+import br.com.calculadoraorganizacional.model.Historico;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +17,12 @@ public class TelaFinanciamento extends JFrame {
 
     private JLabel resultado;
 
-    public TelaFinanciamento() {
+    private int usuarioId;
+    private String nomeUsuario;
+
+    public TelaFinanciamento(String nomeUsuario, int usuarioId) {
+        this.nomeUsuario = nomeUsuario;
+        this.usuarioId = usuarioId;
 
         setTitle("ImobiCalc Pro - Financiamento");
 
@@ -291,6 +299,23 @@ public class TelaFinanciamento extends JFrame {
                             + moeda.format(totalJuros)
                             + "</html>"
             );
+
+            // Salvar no historico
+            try {
+                String expressao = "Imóvel=" + moeda.format(valorImovel)
+                        + " | Entrada=" + moeda.format(entrada)
+                        + " | Juros=" + (juros * 100) + "% a.m."
+                        + " | Prazo=" + prazo + " meses";
+                String resumo = "Financiado=" + moeda.format(valorFinanciado)
+                        + " | Parcela=" + moeda.format(parcela)
+                        + " | Total=" + moeda.format(totalPago)
+                        + " | Juros=" + moeda.format(totalJuros);
+
+                Historico h = new Historico(usuarioId, "Financiamento", expressao, resumo);
+                new HistoricoDAO().salvar(h);
+            } catch (Exception ex) {
+                System.out.println("Erro ao salvar historico: " + ex.getMessage());
+            }
 
         } catch (Exception ex) {
 

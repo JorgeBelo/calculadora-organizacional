@@ -1,4 +1,7 @@
-package br.com.calculadoraorganizacional.main.view;
+package br.com.calculadoraorganizacional.view;
+
+import br.com.calculadoraorganizacional.dao.HistoricoDAO;
+import br.com.calculadoraorganizacional.model.Historico;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +19,12 @@ public class TelaPropostas extends JFrame {
 
     private JTextArea areaResultado;
 
-    public TelaPropostas() {
+    private int usuarioId;
+    private String nomeUsuario;
+
+    public TelaPropostas(String nomeUsuario, int usuarioId) {
+        this.nomeUsuario = nomeUsuario;
+        this.usuarioId = usuarioId;
 
         setTitle("ImobiCalc Pro - Gerar Proposta");
 
@@ -283,6 +291,23 @@ public class TelaPropostas extends JFrame {
                             "\n\nRenda Recomendada: R$ "
                             + df.format(rendaMinima)
             );
+
+            // Salvar no historico
+            try {
+                String expressao = "Cliente=" + nome
+                        + " | Imóvel=R$" + df.format(valorImovel)
+                        + " | Entrada=R$" + df.format(entrada)
+                        + " | Juros=" + (juros * 100) + "% a.m."
+                        + " | Prazo=" + prazo + " meses";
+                String resumo = "Financiado=R$" + df.format(valorFinanciado)
+                        + " | Parcela=R$" + df.format(parcela)
+                        + " | Renda Recomendada=R$" + df.format(rendaMinima);
+
+                Historico h = new Historico(usuarioId, "Proposta", expressao, resumo);
+                new HistoricoDAO().salvar(h);
+            } catch (Exception ex) {
+                System.out.println("Erro ao salvar historico: " + ex.getMessage());
+            }
 
         } catch (Exception ex) {
 

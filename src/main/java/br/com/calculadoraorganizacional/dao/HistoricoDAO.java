@@ -1,6 +1,6 @@
 package br.com.calculadoraorganizacional.dao;
 
-import br.com.calculadoraorganizacional.connection.ConexaoMySQL;
+import br.com.calculadoraorganizacional.ConexaoMySQL;
 import br.com.calculadoraorganizacional.model.Historico;
 
 import java.sql.Connection;
@@ -9,9 +9,9 @@ import java.sql.SQLException;
 
 public class HistoricoDAO {
 
-    public void salvarHistorico(Historico historico) {
+    public void salvar(Historico historico) {
 
-        String sql = "INSERT INTO historico (usuario_id, expressao, resultado) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO historico (usuario_id, tipo, expressao, resultado) VALUES (?, ?, ?, ?)";
 
         try {
 
@@ -20,8 +20,9 @@ public class HistoricoDAO {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, historico.getUsuarioId());
-            stmt.setString(2, historico.getExpressao());
-            stmt.setString(3, historico.getResultado());
+            stmt.setString(2, historico.getTipo());
+            stmt.setString(3, historico.getExpressao());
+            stmt.setString(4, historico.getResultado());
 
             stmt.executeUpdate();
 

@@ -1,6 +1,7 @@
-package br.com.calculadoraorganizacional.main.view;
+package br.com.calculadoraorganizacional.view;
 
-import br.com.calculadoraorganizacional.dao.SimulacaoDAO;
+import br.com.calculadoraorganizacional.dao.HistoricoDAO;
+import br.com.calculadoraorganizacional.model.Historico;
 
 import javax.swing.*;
 import java.awt.*;
@@ -267,12 +268,17 @@ public class TelaCapacidadeCredito extends JFrame {
             );
 
             // Salvar no banco
-            SimulacaoDAO dao = new SimulacaoDAO();
-            dao.salvarSimulacao(usuarioId, "CAPACIDADE_CREDITO", valorMaxImovel, entradaNecessaria,
-                    prazo, taxa, "Renda=" + FMT.format(renda) + " | Comprometimento=" + compStr
-                            + " | ParcelaMax=" + FMT.format(parcelaMax)
-                            + " | ValorFinanciavel=" + FMT.format(valorFinanciavel)
-                            + " | ValorMaxImovel=" + FMT.format(valorMaxImovel));
+            String expressao = "Renda=" + FMT.format(renda)
+                    + " | Comprometimento=" + compStr
+                    + " | Juros=" + (taxa * 100) + "% a.m."
+                    + " | Prazo=" + prazo + " meses";
+            String resumo = "ParcelaMax=" + FMT.format(parcelaMax)
+                    + " | ValorFinanciavel=" + FMT.format(valorFinanciavel)
+                    + " | ValorMaxImovel=" + FMT.format(valorMaxImovel)
+                    + " | EntradaNecessaria=" + FMT.format(entradaNecessaria);
+
+            Historico h = new Historico(usuarioId, "Capacidade", expressao, resumo);
+            new HistoricoDAO().salvar(h);
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos corretamente!");

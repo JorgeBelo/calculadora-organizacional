@@ -1,9 +1,9 @@
-package br.com.calculadoraorganizacional.main.view;
+package br.com.calculadoraorganizacional.view;
 
-import br.com.calculadoraorganizacional.dao.SimulacaoDAO;
+import br.com.calculadoraorganizacional.dao.HistoricoDAO;
+import br.com.calculadoraorganizacional.model.Historico;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -281,11 +281,17 @@ public class TelaCustosTotaisCompra extends JFrame {
             lblTotalGeral.setText(FMT.format(totalGeral));
 
             // Salvar no banco
-            SimulacaoDAO dao = new SimulacaoDAO();
-            dao.salvarSimulacao(usuarioId, "CUSTOS_COMPRA", valorImovel, entrada, 0, 0,
-                    "ITBI=" + FMT.format(itbi)
-                    + " | CustosExtra=" + FMT.format(custosExtra)
-                    + " | TotalGeral=" + FMT.format(totalGeral));
+            String expressao = "Imóvel=" + FMT.format(valorImovel)
+                    + " | Entrada=" + FMT.format(entrada)
+                    + " | ITBI=" + FMT.format(itbi)
+                    + " | Escritura=" + FMT.format(escritura)
+                    + " | Registro=" + FMT.format(registro);
+            String resumo = "CustosExtra=" + FMT.format(custosExtra)
+                    + " | TotalCustos=" + FMT.format(custosTotais)
+                    + " | TotalGeral=" + FMT.format(totalGeral);
+
+            Historico h = new Historico(usuarioId, "Custos Compra", expressao, resumo);
+            new HistoricoDAO().salvar(h);
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos com valores válidos!");

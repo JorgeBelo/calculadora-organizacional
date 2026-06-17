@@ -1,19 +1,17 @@
-package br.com.calculadoraorganizacional.main.view;
+package br.com.calculadoraorganizacional.view;
 
-import br.com.calculadoraorganizacional.dao.SimulacaoDAO;
+import br.com.calculadoraorganizacional.dao.HistoricoDAO;
+import br.com.calculadoraorganizacional.model.Historico;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.Locale;
@@ -314,10 +312,15 @@ public class TelaCronogramoParcelas extends JFrame {
                     + " | Total juros: " + FMT.format(totalJuros);
 
             // Salvar no banco
-            SimulacaoDAO dao = new SimulacaoDAO();
-            dao.salvarSimulacao(usuarioId, "CRONOGRAMA", financiado, 0, prazo, taxa,
-                    sistema + " | Total pago=" + FMT.format(totalParcela)
-                            + " | Total juros=" + FMT.format(totalJuros));
+            String expressao = "Sistema=" + sistema
+                    + " | Financiado=" + FMT.format(financiado)
+                    + " | Juros=" + (taxa * 100) + "% a.m."
+                    + " | Prazo=" + prazo + " meses";
+            String resumo = sistema + " | Total pago=" + FMT.format(totalParcela)
+                    + " | Total juros=" + FMT.format(totalJuros);
+
+            Historico h = new Historico(usuarioId, "Cronograma", expressao, resumo);
+            new HistoricoDAO().salvar(h);
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos corretamente!");
